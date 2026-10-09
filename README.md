@@ -8,8 +8,9 @@ This repository contains fully tested, idempotent SQL scripts, complete schemas,
 
 ## 📚 Table of Experiments
 
-| Experiment | Title | Core Concepts | Script Link |
+| Experiment | Title | Core Concepts | Script / Diagram Link |
 |---|---|---|---|
+| **Experiment 01** | ER Diagram & Relational Schema | Entity-Relationship Modeling, Attributes, Cardinality, Primary & Foreign Keys | [Experiment 1 draw.io.png](EXPERIMENT_01/Experiment%201%20draw.io.png) |
 | **Experiment 02** | College Database & Referential Integrity | Primary Key, Foreign Key, `ON DELETE SET NULL`, `ON DELETE CASCADE`, `UNIQUE`, `NOT NULL` | [experiment_02.sql](EXPERIMENT_02/experiment_02.sql) |
 | **Experiment 03** | Employee-Department-Project Queries | Selection (`WHERE`), Projection, Aggregates (`AVG`, `COUNT`), `GROUP BY`, `HAVING`, `CASE`, `ORDER BY` | [experiment_03.sql](EXPERIMENT_03/experiment_03.sql) |
 | **Experiment 04** | Joins, Subqueries & EXPLAIN Plans | `INNER JOIN`, `LEFT JOIN`, Self-Join, 3-Way Join, Correlated Subqueries, `EXISTS`, Simulated `INTERSECT`/`EXCEPT`, `EXPLAIN` | [experiment_04.sql](EXPERIMENT_04/experiment_04.sql) |
@@ -24,6 +25,10 @@ This repository contains fully tested, idempotent SQL scripts, complete schemas,
 DBMS_LAB_EXPERIMENTS/
 ├── .gitignore                          # Standard git ignore definitions
 ├── README.md                           # Master laboratory documentation (this file)
+│
+├── EXPERIMENT_01/                      # Experiment 1: ER Diagram & Logical Database Design
+│   ├── Experiment 1 draw.io.png        # High-resolution ER diagram design asset
+│   └── README.md                       # Experiment documentation & key concepts
 │
 ├── EXPERIMENT_02/                      # Experiment 2: College Database & Constraints
 │   ├── experiment_02.sql               # Executable MySQL script
@@ -45,12 +50,11 @@ DBMS_LAB_EXPERIMENTS/
 │   ├── experiment_06.sql               # Executable MySQL script
 │   └── README.md                       # Documentation & trigger logic
 │
-└── Taqi docx/                          # Original source files & handwritten scans
-    ├── DBMS 3 TAQI.docx
-    ├── DBMS EXPERIMENT 4 Taqi.docx
-    ├── EXPERIMENT DBMS 5 TAQI.docx
-    ├── DBMS EXP 6 Taqi.docx
-    └── WhatsApp Image 2026-10-09...    # Handwritten notebook pages for Experiment 2
+└── Ujjwal docs/                        # Student documentation submissions (Ujjwal Gupta 25LBCS3125)
+    ├── RDBMS EX 3 Ujjwal Gupta 25LBCS3125.docx
+    ├── RDBMS EX 4 Ujjwal Gupta 25LBCS3125.docx
+    ├── RDBMS EX 5 Ujjwal Gupta 25LBCS3125.docx
+    └── RDBMS EX 6 Ujjwal Gupta 25LBCS3125.docx
 ```
 
 ---
