@@ -16,6 +16,10 @@ This repository contains fully tested, idempotent SQL scripts, complete schemas,
 | **Experiment 04** | Joins, Subqueries & EXPLAIN Plans | `INNER JOIN`, `LEFT JOIN`, Self-Join, 3-Way Join, Correlated Subqueries, `EXISTS`, Simulated `INTERSECT`/`EXCEPT`, `EXPLAIN` | [experiment_04.sql](EXPERIMENT_04/experiment_04.sql) |
 | **Experiment 05** | Views, Updatability & Recursive CTEs | Aggregate Views, View Updatability Rules, Self-Referential FKs, Common Table Expressions, Recursive CTE | [experiment_05.sql](EXPERIMENT_05/experiment_05.sql) |
 | **Experiment 06** | Stored Procedures & Triggers | Stored Procedures, `SIGNAL SQLSTATE`, `BEFORE UPDATE` Validation Trigger, `AFTER UPDATE` Audit Logging | [experiment_06.sql](EXPERIMENT_06/experiment_06.sql) |
+| **Experiment 07** | Functional Dependencies & Normalization | UNF, 1NF, 2NF, 3NF, BCNF, Functional Dependencies, Lossless Join & Dependency Preservation | [experiment_07_normalization.sql](EXPERIMENT_07/experiment_07_normalization.sql) |
+| **Experiment 08** | Transactions, Savepoints & Concurrency | `START TRANSACTION`, `COMMIT`, `ROLLBACK`, `SAVEPOINT`, Isolation Levels, Concurrency Anomalies | [experiment_08_transactions_isolation.sql](EXPERIMENT_08/experiment_08_transactions_isolation.sql) |
+| **Experiment 09** | Indexing & EXPLAIN Benchmarking | Single-Column Index, Composite Index, Performance Benchmarking, `EXPLAIN` Analysis | [experiment_09_indexing_explain.sql](EXPERIMENT_09/experiment_09_indexing_explain.sql) |
+| **Experiment 10** | Slow Query Analysis & Optimization | 10k-Row Synthetic Ingestion, Query Rewriting, Index Tuning, Before/After Plan Comparison | [experiment_10_query_optimization.sql](EXPERIMENT_10/experiment_10_query_optimization.sql) |
 
 ---
 
@@ -50,7 +54,27 @@ DBMS_LAB_EXPERIMENTS/
 │   ├── experiment_06.sql               # Executable MySQL script
 │   └── README.md                       # Documentation & trigger logic
 │
+├── EXPERIMENT_07/                      # Experiment 7: Functional Dependencies & Normalization
+│   ├── experiment_07_normalization.sql # Executable MySQL script
+│   └── README.md                       # Documentation & normalization breakdown
+│
+├── EXPERIMENT_08/                      # Experiment 8: Transactions & Concurrency Control
+│   ├── experiment_08_transactions_isolation.sql # Executable MySQL script
+│   └── README.md                       # Documentation & isolation level anomalies
+│
+├── EXPERIMENT_09/                      # Experiment 9: Indexing & Query Benchmarking
+│   ├── experiment_09_indexing_explain.sql # Executable MySQL script
+│   └── README.md                       # Documentation & EXPLAIN cost analysis
+│
+├── EXPERIMENT_10/                      # Experiment 10: Query Optimization & Index Tuning
+│   ├── experiment_10_query_optimization.sql # Executable MySQL script
+│   └── README.md                       # Documentation & query rewriting strategies
+│
 └── Ujjwal docs/                        # Student documentation submissions (Ujjwal Gupta 25LBCS3125)
+    ├── DBMS ujjwal ex 7.docx
+    ├── DBMS ujjwal ex 8.docx
+    ├── DBMS ujjwal ex 9.docx
+    ├── DBMS ujjwal ex 10.docx
     ├── RDBMS EX 3 Ujjwal Gupta 25LBCS3125.docx
     ├── RDBMS EX 4 Ujjwal Gupta 25LBCS3125.docx
     ├── RDBMS EX 5 Ujjwal Gupta 25LBCS3125.docx
@@ -71,7 +95,7 @@ DBMS_LAB_EXPERIMENTS/
 
 ## 🚀 Execution Instructions
 
-Each experiment is self-contained and encapsulated within its own database schema (`CollegeDB`, `CompanyDB_Exp03`, `CompanyDB_Exp04`, `CompanyDB_Exp05`, `CompanyDB_Exp06`). Scripts are completely **rerunnable** and clean up existing tables/views/routines prior to execution.
+Each experiment is self-contained and encapsulated within its own database schema (`CollegeDB`, `CompanyDB_Exp03`, `CompanyDB_Exp04`, `CompanyDB_Exp05`, `CompanyDB_Exp06`, `DBMS_Exp7`, `DBMS_Exp8`, `DBMS_Exp9`, `DBMS_Exp10`). Scripts are completely **rerunnable** and clean up existing tables/views/routines prior to execution.
 
 ### Method 1: Using MySQL Command-Line Client
 
@@ -92,6 +116,18 @@ mysql -u root -p < EXPERIMENT_05/experiment_05.sql
 
 # Execute Experiment 6
 mysql -u root -p < EXPERIMENT_06/experiment_06.sql
+
+# Execute Experiment 7
+mysql -u root -p < EXPERIMENT_07/experiment_07_normalization.sql
+
+# Execute Experiment 8
+mysql -u root -p < EXPERIMENT_08/experiment_08_transactions_isolation.sql
+
+# Execute Experiment 9
+mysql -u root -p < EXPERIMENT_09/experiment_09_indexing_explain.sql
+
+# Execute Experiment 10
+mysql -u root -p < EXPERIMENT_10/experiment_10_query_optimization.sql
 ```
 
 ### Method 2: Using MySQL Workbench
@@ -127,6 +163,22 @@ mysql -u root -p < EXPERIMENT_06/experiment_06.sql
 - `DELIMITER $$` allows multi-statement compound blocks to compile cleanly.
 - `SIGNAL SQLSTATE '45000'` surfaces clean business rule violation messages.
 - `BEFORE UPDATE` prevents negative salary writes, while `AFTER UPDATE` writes historical audit records with timestamp logs into `Salary_Audit`.
+
+### 6. Relational Normalization (UNF through BCNF)
+- In **Experiment 7**, a denormalized sales relation is decomposed progressively through 1NF (atomicity), 2NF (removal of partial dependencies), 3NF (removal of transitive dependencies), and BCNF.
+- Verified lossless join properties via natural/inner joins and confirmed dependency preservation.
+
+### 7. ACID Transactions, Savepoints & Isolation Levels
+- In **Experiment 8**, banking transactions demonstrate `START TRANSACTION`, `COMMIT`, `ROLLBACK`, and nested `SAVEPOINT` recoveries.
+- Concurrency phenomena (dirty reads, non-repeatable reads, phantom reads) are analyzed across MySQL isolation tiers (`READ UNCOMMITTED` to `SERIALIZABLE`).
+
+### 8. Performance Tuning via B-Tree Indexing & EXPLAIN
+- In **Experiment 9**, benchmarked single-column and composite B-tree indexes over a 5,000+ record dataset generated via recursive CTEs.
+- `EXPLAIN` execution plans confirm reduction from `ALL` (full table scans) to `range` and `ref` index scans adhering to the leftmost prefix rule.
+
+### 9. Complex Query Rewriting & Covering Indexes
+- In **Experiment 10**, identified and mitigated common performance bottlenecks over a 10,000-row dataset.
+- Optimized non-sargable functions, converted leading wildcards, created composite covering indexes (`Using index`), and eliminated subquery penalties.
 
 ---
 
